@@ -1,7 +1,12 @@
-import { useState } from "react"; 
+import { useRef, useState } from "react";
 import "../css/M1_Carbine.css";
 import Credits from "../components/Credits";
 
+const exampleImages = [
+  { src: "/images/M1-rear-sight_1st.png", label: "Image 1" },
+  { src: "/images/chocolatecake.jpg", label: "Image 2" },
+  { src: "/images/chocolatecake.jpg", label: "Image 3" },
+];
 
 const serialRanges = [
   { from: 1, to: 5, manufacturer: "Inland Division, General Motors", date: "November 1941" },
@@ -53,22 +58,36 @@ function M1_Carbine() {
   const [serialNumber, setSerialNumber] = useState("");
   const [result, setResult] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const [pulse, setPulse] = useState(false);
+  const outputRef = useRef(null); //new
+  const [selectedFirearm, setSelectedFirearm] = useState(""); //new
 
+  
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const input = serialNumber.trim();
-
-    // no naughty input
+  
     if (!/^\d{1,10}$/.test(input.replace(/,/g, ""))) {
       setResult(null);
       setSubmitted(true);
+      setPulse(true);    
+      setTimeout(() => setPulse(false), 500);
+      if (outputRef.current) {
+        outputRef.current.focus();
+      }
       return;
     }
 
     const info = findSerialInfo(input);
     setResult(info);
     setSubmitted(true);
+
+    setPulse(true);    
+    setTimeout(() => setPulse(false), 500);
+    if (outputRef.current) {
+      outputRef.current.focus();
+    }
   };
 
   const findSerialInfo = (serialNumber) => {
@@ -78,41 +97,103 @@ function M1_Carbine() {
     return serialRanges.find(row => num >= row.from && num <= row.to) || null;
   };
 
-  return (
-    <div className="M1_Carbine">
-      <h2>M1, M1A1, and M2 Carbine Serial Number Lookup</h2>
-      <form className="serial-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="serial-input"
-          placeholder="Enter Serial Number"
-          value={serialNumber}
-          onChange={(e) => {
-            // no naughty input
-            const sanitized = e.target.value.replace(/[^\d,]/g, "");
-            setSerialNumber(sanitized);
-          }}
-        />
-        <button type="submit" className="serial-button">Submit</button>
-      </form>
+return (
+  <div className="M1_Carbine">
+    <h2>M1, M1A1, and M2 Carbine Serial Number Lookup</h2>
+      <div className="side-images">
+        <p className="side-image-text">Please press the button corresponding to your firearm</p>
+        <div className="side-image-row">
+          <div className="side-buttons-column">
+            <button
+              className="side-image-button"
+              onClick={() => {
+                setSelectedFirearm("m1");
+                setPulse(true);           // trigger pulse
+                setTimeout(() => setPulse(false), 500);
+              }}
+            >
+              Top firearm
+            </button>
 
-      {submitted && (
-        result ? (
-          <div className="serial-result">
-            <p><strong>Manufacturer:</strong> {result.manufacturer}</p>
-            <p><strong>Date:</strong> {result.date}</p>
-            <p><strong>Range:</strong> {result.from.toLocaleString()} - {result.to.toLocaleString()}</p>
+            <button
+              className="side-image-button"
+              onClick={() => {
+                setSelectedFirearm("m1a1");
+                setPulse(true);
+                setTimeout(() => setPulse(false), 500);
+              }}
+            >
+              Middle firearm
+            </button>
+
+            <button
+              className="side-image-button"
+              onClick={() => {
+                setSelectedFirearm("m2");
+                setPulse(true);
+                setTimeout(() => setPulse(false), 500);
+              }}
+            >
+              Bottom firearm
+            </button>
+
           </div>
-        ) : (
-          <p>No matching serial number found.</p>
-        )
-      )}
 
-      <Credits creditList={creditData} />
-      <div/>
-      
+          <img 
+            src="/images/m1_to_m2.jpg" 
+            alt="M1 Example"
+            className="side-image"
+          />
+        </div>
+      </div>
+
+    <form className="serial-form" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        className="serial-input"
+        placeholder="Enter Serial Number"
+        value={serialNumber}
+        onChange={(e) => {
+          const sanitized = e.target.value.replace(/[^\d,]/g, "");
+          setSerialNumber(sanitized);
+        }}
+      />
+      <button type="submit" className="serial-button">Submit</button>
+    </form>
+
+    <div
+      className="input_and_output"
+      ref={outputRef}
+      tabIndex={-1}  /* required so div can receive focus */
+    >
+      {!submitted ? (
+        <p>Information will be displayed here</p>
+      ) : result ? (
+        <div className={`serial-result ${pulse ? "pulse" : ""}`}>
+          <p><strong>Manufacturer:</strong> {result.manufacturer}</p>
+          <p><strong>Date:</strong> {result.date}</p>
+          <p><strong>Range:</strong> {result.from.toLocaleString()} - {result.to.toLocaleString()}</p>
+        </div>
+      ) : (
+        <p className={pulse ? "pulse" : ""}>
+          No matching serial number found.
+        </p>
+      )}
+      {selectedFirearm && (
+        <p 
+          style={{ marginTop: "1rem" }} 
+          className={pulse ? "pulse" : ""}
+        >
+          <strong>Type:</strong> {selectedFirearm}
+        </p>
+      )}
     </div>
-  );
+
+
+    <Credits creditList={creditData} />
+  </div>
+);
+
 }
 
 export default M1_Carbine;

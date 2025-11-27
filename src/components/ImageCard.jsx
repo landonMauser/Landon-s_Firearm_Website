@@ -16,10 +16,11 @@ function ImageCard({ name, image, pagePath }) {
       </div>
       <h3 className="image-card-name">{name}</h3>
       <button className="image-card-button" onClick={goToPage}>
-        Date {name}
+        Learn about your <strong>{name}</strong>
       </button>
     </div>
   );
+
 }
 
 export default ImageCard;

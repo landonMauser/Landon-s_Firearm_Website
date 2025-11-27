@@ -24,10 +24,17 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-.M1_Carbine-empty h2 {
+/* .M1_Carbine-empty h2 {
   margin-bottom: 1rem;
   font-size: 2rem;
   color: #e50914; 
+} */
+
+.M1_Carbine .credits-container {
+  margin-top: 15rem;  /* push down the citation*/
+  text-align: center;  
+  border-top: 1px solid #000;  
+  padding-top: 2rem;
 }
 
 .M1_Carbine-empty p {
@@ -86,4 +93,73 @@
 
 .serial-button:hover {
   background-color: #b00710;
+}
+.pulse {
+  animation: pulseFlash 2s ease-out;
+}
+
+@keyframes pulseFlash {
+  0% {
+    background-color: rgba(255, 136, 0, 0.7);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+
+
+.side-images {
+  position: absolute; 
+  top: 400px; 
+  right: 130px;   
+  display: flex;
+  flex-direction: column; /* text above */
+  gap: 10px;       
+  align-items: flex-start; 
+}
+
+.side-image-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.side-image-row {
+  display: flex;            /* buttons left, image right */
+  align-items: flex-start;  
+  gap: 15px;
+}
+
+.side-buttons-column {
+  display: flex;
+  flex-direction: column;   /* vertical buttons */
+  gap: 35px;
+}
+
+.side-image-button {
+  padding: 10px 16px;  
+  font-size: 1rem;   
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background-color: #97CDFC;
+  color: #000;
+}
+
+.side-image {
+  width: 25vw;
+  min-width: 300px;  /* never smaller than 300px */
+  height: auto;
+  max-height: 200px;
+}
+
+
+.input_and_output {
+  margin: 6rem 0;      /* adds vertical spacing above & below */
+  line-height: 2;       /* spreads text vertically if multi-line */
+  font-size: 1.5rem;   /* optional: make it bigger */
+  color: #000000;         /* optional: softer color */
+  text-align: left;  /* center the placeholder text */
+  max-width: 650px;
 }
