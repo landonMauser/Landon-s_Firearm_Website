@@ -159,12 +159,12 @@ function AddRecipe() {
   return (
     <>
       <div className="add-recipe">
-        <h2>Add Recipe</h2>
+        <h2>Make Request</h2>
       </div>
       <div>
         <form onSubmit={validate}>
           <div>
-            <label className="reg-msg">Recipe Name</label>
+            <label className="reg-msg">Firearm Name</label>
             <input
               onChange={checkRecName}
               onClick={clearResult}
@@ -175,7 +175,7 @@ function AddRecipe() {
             <label className="err-msg">{errName}</label>
           </div>
           <div>
-            <label className="reg-msg">Recipe Category</label>
+            <label className="reg-msg">Country of Origin</label>
             <select
               value={recipeCategory}
               onChange={checkCategory}
@@ -191,7 +191,7 @@ function AddRecipe() {
             <label className="err-msg">{errCategory}</label>
           </div>
           <div>
-            <label className="reg-msg">Number of Servings</label>
+            <label className="reg-msg">Website Source</label>
             <select
               value={numServings}
               onChange={checkServings}

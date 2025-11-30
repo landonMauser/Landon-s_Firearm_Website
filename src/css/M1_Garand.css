@@ -1,0 +1,166 @@
+.M1_Garand {
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
+  background-color: #ffffff; 
+  font-size: 2rem;
+}
+
+.M1_Garand h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+  font-size: 2.5rem;
+  color: #222222; 
+  text-shadow: none; 
+}
+
+.M1_Garand-empty {
+  text-align: center;
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 600px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.note-text {
+  font-size: 0.8rem;       /* smaller font */
+  text-align: center;      /* center the text */
+  margin-top: 8px;         /* optional spacing */
+  color: #555;             /* optional softer grey */
+}
+
+.M1_Garand .credits-container {
+  margin-top: 15rem;  /* push down the citation*/
+  text-align: center;  
+  border-top: 1px solid #000;  
+  padding-top: 2rem;
+}
+
+.M1_Garand-empty p {
+  color: #555; 
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.recipes-grid > * {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.serial-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.serial-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.75rem;
+  font-size: 1.2rem;
+  border: 1px solid #ccc; 
+  border-radius: 8px;
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+  background-color: #d3d0d0;
+  color: #222;
+}
+
+.serial-button {
+  padding: 0.75rem 2rem;
+  font-size: 1.2rem;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.serial-button:hover {
+  background-color: #b00710;
+}
+.pulse {
+  animation: pulseFlash 2s ease-out;
+}
+
+@keyframes pulseFlash {
+  0% {
+    background-color: rgba(255, 136, 0, 0.7);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+
+
+.side-images {
+  position: absolute; 
+  top: 400px; 
+  right: 130px;   
+  display: flex;
+  flex-direction: column; /* text above */
+  gap: 10px;       
+  align-items: flex-start; 
+}
+
+.side-image-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.side-image-row {
+  display: flex;            /* buttons left, image right */
+  align-items: flex-start;  
+  gap: 15px;
+}
+
+.side-buttons-column {
+  display: flex;
+  flex-direction: column;   /* vertical buttons */
+  gap: 35px;
+}
+
+.side-image-button {
+  padding: 10px 16px;  
+  font-size: 1rem;   
+  cursor: pointer;
+  border-radius: 6px;
+  border: none;
+  background-color: #97CDFC;
+  color: #000;
+}
+
+.side-image {
+  width: 25vw;
+  min-width: 300px;  /* never smaller than 300px */
+  height: auto;
+  max-height: 200px;
+}
+
+
+.input_and_output {
+  margin: 6rem 0;      /* adds vertical spacing above & below */
+  line-height: 2;       /* spreads text vertically if multi-line */
+  font-size: 1.5rem;   /* optional: make it bigger */
+  color: #000000;         /* optional: softer color */
+  text-align: left;  /* center the placeholder text */
+  max-width: 650px;
+}

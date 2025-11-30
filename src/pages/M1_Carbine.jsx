@@ -51,6 +51,7 @@ const serialRanges = [
 const creditData = [
   { name: "M1 Carbine source 1", url: "https://www.militaria-deal.com/militaria-blog/ww2-m1-carbine-guide" },
   { name: "M1 Carbine source 2", url: "http://www.uscarbinecal30.com/serialnumbers.html" },
+  { name: "M1 Carbine source 3", url: "https://gunsmagazine.com/our-experts/m1-m1a1-m2-carbines" },
   { name: "Historical Reading", url: "https://ia801400.us.archive.org/28/items/the-m1-carbine-leroy-thompson/vdoc.pub_the-m1-carbine-weapon-.pdf" },
 ];
 

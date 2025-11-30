@@ -99,12 +99,16 @@ function Home() {
             image={recipe.picture}
             pagePath={
               recipe.recipename === "M1 Carbine"
-                ? "/M1_Carbine"                  
-                : `/recipe/${recipe.recipeid}`   
+                ? "/M1_Carbine"
+                : recipe.recipename === "M1 Garand"
+                ? "/M1_Garand"
+                : `/recipe/${recipe.recipeid}`
             }
           />
         ))}
-</div>
+      </div>
+
+      
 
     </div>
   );

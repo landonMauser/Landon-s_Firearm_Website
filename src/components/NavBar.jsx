@@ -12,10 +12,10 @@ function NavBar() {
           Home
         </Link>
         <Link to="/favorites" className="nav-link">
-          Favorites
+          Report Mistake
         </Link>
         <Link to="/addrecipe" className="nav-link">
-          Add Recipe
+          Make Request
         </Link>
       </div>
     </nav>
