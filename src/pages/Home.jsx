@@ -21,6 +21,8 @@ function Home() {
        JOIN categories ON categories.categoryid = recipecategory.categoryid 
        ORDER BY recipes.recipename`
     );
+    
+
 
     fetch("http://localhost/reactapp/getData.php", {
       method: "POST",
@@ -102,8 +104,16 @@ function Home() {
                 ? "/M1_Carbine"
                 : recipe.recipename === "M1 Garand"
                 ? "/M1_Garand"
+                : recipe.recipename === "Carcano"
+                ? "/carcano"
+                : recipe.recipename === "Krag Jorgensen"
+                ? "/Krag_Jorgensen"
+                : recipe.recipename === "Mosin Nagant"
+                ? "/Mosin_Nagant"
                 : `/recipe/${recipe.recipeid}`
+                
             }
+
           />
         ))}
       </div>
