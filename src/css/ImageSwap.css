@@ -1,0 +1,50 @@
+.image-swap-container {
+  margin-left: 2rem;
+}
+
+.model-button-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.model-button {
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+.image-area {
+  margin: 1rem 0;
+}
+
+.swap-image {
+  max-width: 300px;
+  border: 2px solid #444;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.swap-caption {
+  font-size: 1.2rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.edit-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.edit-buttons button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+.side-image-column {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;      /* spacing between each image */
+  align-items: flex-start;
+}

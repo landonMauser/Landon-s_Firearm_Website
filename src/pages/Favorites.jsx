@@ -1,84 +1,64 @@
-import { useState } from "react"; 
-import "../css/Favorites.css";
-import Credits from "../components/Credits";
+import { useState } from "react";
 
-const serialRanges = [
-  { from: 1, to: 5, manufacturer: "Inland Division, General Motors", date: "November 1941" },
-  { from: 6, to: 10, manufacturer: "Winchester Repeating Arms", date: "December 1941" },
-  { from: 11, to: 999999, manufacturer: "Inland Division, General Motors", date: "05/42-09/43" },
-  { from: 1000000, to: 1349999, manufacturer: "Winchester Repeating Arms", date: "09/42-02/44" },
-  // add all rows here
-];
+const Favorites = () => {
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
 
-const creditData = [
-  { name: "M1 Carbine source 1", url: "https://www.militaria-deal.com/militaria-blog/ww2-m1-carbine-guide" },
-  { name: "M1 Carbine source 2", url: "http://www.uscarbinecal30.com/serialnumbers.html" },
-  { name: "M1 Carbine source 3", url: "https://ia801400.us.archive.org/28/items/the-m1-carbine-leroy-thompson/vdoc.pub_the-m1-carbine-weapon-.pdf" },
-];
+const BACKEND_URL = "http://localhost:8888/reactapp/favorites.php";
 
-function Favorites() {
-  const [serialNumber, setSerialNumber] = useState("");
-  const [result, setResult] = useState(null);
-  const [submitted, setSubmitted] = useState(false);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  const trimmedMessage = message.trim();
+  if (!trimmedMessage) {
+    setStatus("Message cannot be empty");
+    return;
+  }
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  setLoading(true);
+  setStatus("");
 
-    // Trim whitespace
-    const input = serialNumber.trim();
+  try {
+    const response = await fetch(BACKEND_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ message: trimmedMessage }),
+    });
 
-    // no naughty input
-    if (!/^\d{1,10}$/.test(input.replace(/,/g, ""))) {
-      setResult(null);
-      setSubmitted(true);
-      return;
+    const data = await response.json();
+    if (data.success) {
+      setStatus("Saved successfully!");
+      setMessage("");
+    } else {
+      setStatus("Error saving: " + data.error);
     }
+  } catch (err) {
+    setStatus("Network error: " + err.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
-    const info = findSerialInfo(input);
-    setResult(info);
-    setSubmitted(true);
-  };
-
-  const findSerialInfo = (serialNumber) => {
-    const cleanNumber = serialNumber.replace(/,/g, "");
-    const num = Number(cleanNumber);
-    if (isNaN(num)) return null;
-    return serialRanges.find(row => num >= row.from && num <= row.to) || null;
-  };
 
   return (
-    <div className="favorites">
-      <h2>M1 Carbine Serial Number Lookup</h2>
-      <form className="serial-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="serial-input"
-          placeholder="Enter Serial Number"
-          value={serialNumber}
-          onChange={(e) => {
-            // no naughty input
-            const sanitized = e.target.value.replace(/[^\d,]/g, "");
-            setSerialNumber(sanitized);
-          }}
+    <div style={{ maxWidth: "500px", margin: "auto", padding: "20px" }}>
+      <h2>Send a Message</h2>
+      <form onSubmit={handleSubmit}>
+        <textarea
+          placeholder="Type your message here..."
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          style={{ width: "100%", height: "150px", marginBottom: "10px" }}
         />
-        <button type="submit" className="serial-button">Submit</button>
+        <button type="submit" disabled={loading} style={{ padding: "10px 20px" }}>
+          {loading ? "Saving..." : "Save"}
+        </button>
       </form>
-
-      {submitted && (
-        result ? (
-          <div className="serial-result">
-            <p><strong>Manufacturer:</strong> {result.manufacturer}</p>
-            <p><strong>Date:</strong> {result.date}</p>
-            <p><strong>Range:</strong> {result.from.toLocaleString()} - {result.to.toLocaleString()}</p>
-          </div>
-        ) : (
-          <p>No matching serial number found.</p>
-        )
+      {status && (
+        <p style={{ color: status.includes("success") ? "green" : "red" }}>{status}</p>
       )}
-
-      <Credits creditList={creditData} />
     </div>
   );
-}
+};
 
 export default Favorites;

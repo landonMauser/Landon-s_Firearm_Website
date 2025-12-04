@@ -94,28 +94,30 @@ function Home() {
         </button>
       </form>
       <div className="recipes-grid">
-        {filteredRecipes.map((recipe) => (
-          <ImageCard
-            key={recipe.recipeid}
-            name={recipe.recipename}
-            image={recipe.picture}
-            pagePath={
-              recipe.recipename === "M1 Carbine"
-                ? "/M1_Carbine"
-                : recipe.recipename === "M1 Garand"
-                ? "/M1_Garand"
-                : recipe.recipename === "Carcano"
-                ? "/carcano"
-                : recipe.recipename === "Krag Jorgensen"
-                ? "/Krag_Jorgensen"
-                : recipe.recipename === "Mosin Nagant"
-                ? "/Mosin_Nagant"
-                : `/recipe/${recipe.recipeid}`
-                
-            }
+        {filteredRecipes.map((recipe) => {
+          const specialPages = {
+            "M1 Carbine": "/M1_Carbine",
+            "M1 Garand": "/M1_Garand",
+            "Carcano": "/carcano",
+            "Krag Jorgensen": "/Krag_Jorgensen",
+            "Mosin Nagant": "/Mosin_Nagant",
+          };
 
-          />
-        ))}
+          const pagePath = specialPages[recipe.recipename] 
+            ? specialPages[recipe.recipename] 
+            : null;
+
+          return (
+            <ImageCard
+              key={recipe.recipeid}
+              name={recipe.recipename}
+              image={recipe.picture}
+              pagePath={pagePath}
+              isUnderDevelopment={!pagePath} 
+            />
+          );
+        })}
+
       </div>
 
       

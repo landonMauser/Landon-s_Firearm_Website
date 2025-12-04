@@ -3,19 +3,21 @@ import { useState, useRef, useEffect } from "react";
 
 function AddRecipe() {
   const [recipeName, setRecipeName] = useState("");
-  const [recipeCategory, setRecipeCategory] = useState("0");
-  const [numServings, setNumServings] = useState("0");
+  const [recipeCategory, setRecipeCategory] = useState("2");
   const [recipePic, setRecipePic] = useState("");
   const [errName, setErrName] = useState("");
   const [errCategory, setErrCategory] = useState("");
-  const [errServings, setErrServings] = useState("");
   const [errPic, setErrPic] = useState("");
   const [categoryData, setCategoryData] = useState([]);
   const [addInfo, setAddInfo] = useState("");
   const fileInputRef = useRef(null);
   const [file, setFile] = useState(null);
 
-  const servings = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+  const [country, setCountry] = useState("");
+  const [errCountry, setErrCountry] = useState("");
+
+  const [websiteSource, setWebsiteSource] = useState("");
+  const [errWebsite, setErrWebsite] = useState("");
 
   useEffect(() => {
     const formData = new FormData();
@@ -38,10 +40,24 @@ function AddRecipe() {
 
   async function validate(event) {
     event.preventDefault();
+
+    let hasError = false;
     let trimmedName = "";
     let trimmedPic = "";
 
-    let hasError = false;
+    if (websiteSource.trim() === "") {
+      setErrWebsite("<== required");
+      hasError = true;
+    } else {
+      setErrWebsite("");
+    }
+
+    if (country.trim() === "") {
+      setErrCountry("<== required");
+      hasError = true;
+    } else {
+      setErrCountry("");
+    }
 
     if (recipeName.trim() === "") {
       setErrName("<== required");
@@ -58,13 +74,6 @@ function AddRecipe() {
       setErrCategory("");
     }
 
-    if (numServings === "0") {
-      setErrServings("<== required");
-      hasError = true;
-    } else {
-      setErrServings("");
-    }
-
     if (recipePic === "") {
       setErrPic("<== required");
       hasError = true;
@@ -75,7 +84,6 @@ function AddRecipe() {
 
     if (hasError) return;
 
-    // upload the image
     const uploadImage = async () => {
       const formData = new FormData();
       formData.append("image", file);
@@ -90,13 +98,12 @@ function AddRecipe() {
 
         if (!res.ok) {
           setErrPic("<== file could not be uploaded");
-          setErrPic(res.ok);
           return false;
         }
 
         console.log("Upload successful:", data);
         return true;
-      } catch (err) {
+      } catch {
         setErrPic("<== file could not be uploaded");
         return false;
       }
@@ -107,13 +114,14 @@ function AddRecipe() {
 
     try {
       const newRecipe = {
-        recipename: recipeName,
-        picture: recipePic,
+        recipename: trimmedName,
+        picture: trimmedPic,
+        country: country,
         category: recipeCategory,
-        servings: numServings,
+        website: websiteSource,
       };
 
-      fetch("http://localhost/reactapp/addData.php", {
+      await fetch("http://localhost/reactapp/addData.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newRecipe),
@@ -121,39 +129,26 @@ function AddRecipe() {
 
       setRecipeName("");
       setRecipeCategory("0");
-      setNumServings("0");
       setRecipePic("");
+      setWebsiteSource("");
+      setCountry("");
       setFile(null);
+
       fileInputRef.current.value = "";
+
       setAddInfo("Success!");
     } catch (err) {
-      setAddInfo(err + " Unexpected error");
+      setAddInfo(String(err) + " Unexpected error");
     }
-  }
-
-  function checkRecName(event) {
-    setRecipeName(event.target.value);
-  }
-
-  function checkCategory(event) {
-    setRecipeCategory(event.target.value);
-  }
-
-  function checkServings(event) {
-    setNumServings(event.target.value);
-  }
-
-  function checkPic(event) {
-    setRecipePic(event.target.files[0].name);
-    setFile(event.target.files[0]);
   }
 
   function clearResult() {
     setAddInfo("");
     setErrName("");
     setErrCategory("");
-    setErrServings("");
     setErrPic("");
+    setErrCountry("");
+    setErrWebsite("");
   }
 
   return (
@@ -161,76 +156,83 @@ function AddRecipe() {
       <div className="add-recipe">
         <h2>Make Request</h2>
       </div>
+
       <div>
-        <form onSubmit={validate}>
-          <div>
-            <label className="reg-msg">Firearm Name</label>
-            <input
-              onChange={checkRecName}
-              onClick={clearResult}
-              value={recipeName}
-              type="text"
-              id="recname"
-            />
-            <label className="err-msg">{errName}</label>
-          </div>
-          <div>
-            <label className="reg-msg">Country of Origin</label>
-            <select
-              value={recipeCategory}
-              onChange={checkCategory}
-              onClick={clearResult}
-            >
-              <option value="0">-</option> {/* Default option */}
-              {categoryData.map((item) => (
-                <option key={item.categoryID} value={item.categoryID}>
-                  {item.categoryName}
-                </option>
-              ))}
-            </select>
-            <label className="err-msg">{errCategory}</label>
-          </div>
-          <div>
-            <label className="reg-msg">Website Source</label>
-            <select
-              value={numServings}
-              onChange={checkServings}
-              onClick={clearResult}
-            >
-              <option value="0">-</option> {/* Default option */}
-              {servings.map((item) => (
-                <option key={item} value={item}>
-                  {item}
-                </option>
-              ))}
-            </select>
-            <label className="err-msg">{errServings}</label>
-          </div>
-          <div>
-            <label className="reg-msg">Recipe Picture</label>
-            <input
-              type="file"
-              ref={fileInputRef}
-              accept="image/*"
-              onChange={checkPic}
-              onClick={clearResult}
-              id="recpic"
-            />
-            <label className="err-msg">{errPic}</label>
-          </div>
-          <div>
-            <center>
-              <button className="sub-button" type="submit">
-                Submit
-              </button>
-            </center>
-          </div>
-          <div>
-            <center>
-              <label className="add-info-msg">{addInfo}</label>
-            </center>
-          </div>
-        </form>
+      <form onSubmit={validate} className="add-recipe-form">
+
+        <div>
+          <label className="reg-msg">Firearm Name</label>
+          <input
+            type="text"
+            value={recipeName}
+            onChange={(e) => setRecipeName(e.target.value)}
+            onClick={clearResult}
+          />
+          <label className="err-msg">{errName}</label>
+        </div>
+
+        <div>
+          <label className="reg-msg">Country of Origin</label>
+          <input
+            type="text"
+            value={country}
+            onChange={(e) => setCountry(e.target.value)}
+            onClick={clearResult}
+          />
+          <label className="err-msg">{errCountry}</label>
+        </div>
+
+        <div>
+          <label className="reg-msg">Website Source</label>
+          <input
+            type="text"
+            value={websiteSource}
+            onChange={(e) => setWebsiteSource(e.target.value)}
+            onClick={clearResult}
+          />
+          <label className="err-msg">{errWebsite}</label>
+        </div>
+
+        <div>
+          <label className="reg-msg">Category</label>
+          <select
+            value={recipeCategory}
+            onChange={(e) => setRecipeCategory(e.target.value)}
+            onClick={clearResult}
+          >
+            <option value="0">Select Category</option>
+            {categoryData.map((cat) => (
+              <option key={cat.categoryID} value={cat.categoryID}>
+                {cat.categoryName}
+              </option>
+            ))}
+          </select>
+          <label className="err-msg">{errCategory}</label>
+        </div>
+
+        <div>
+          <label className="reg-msg">Picture</label>
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept="image/*"
+            onChange={(e) => {
+              setRecipePic(e.target.files[0]?.name || "");
+              setFile(e.target.files[0]);
+            }}
+            onClick={clearResult}
+          />
+          <label className="err-msg">{errPic}</label>
+        </div>
+
+        <div>
+          <center>
+            <button className="sub-button" type="submit">Submit</button>
+          </center>
+        </div>
+
+      </form>
+
       </div>
     </>
   );

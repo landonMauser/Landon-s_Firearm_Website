@@ -2,57 +2,25 @@ import { useRef, useState } from "react";
 import "../css/Krag_Jorgensen.css";
 import Credits from "../components/Credits";
 
-const exampleImages = [
-  { src: "/images/M1-rear-sight_1st.png", label: "Image 1" },
-  { src: "/images/chocolatecake.jpg", label: "Image 2" },
-  { src: "/images/chocolatecake.jpg", label: "Image 3" },
-];
-
 const serialRanges = [
-  { from: 1, to: 5, manufacturer: "Inland Division, General Motors", date: "November 1941" },
-  { from: 6, to: 10, manufacturer: "Winchester Repeating Arms", date: "December 1941" },
-  { from: 11, to: 999999, manufacturer: "Inland Division, General Motors", date: "May 1942 - September 1943" },
-  { from: 1000000, to: 1349999, manufacturer: "Winchester Repeating Arms", date: "September 1942 - February 1944" },
-  { from: 1350000, to: 1449999, manufacturer: "Underwood, Elliott, Fisher", date: "November 1942 - July 1943" },
-  { from: 1450000, to: 1549999, manufacturer: "National Postal Meter", date: "January 1943 - September 1943" },
-  { from: 1550000, to: 1662519, manufacturer: "Quality Hardware Mfg. Corp", date: "February 1943 - May 1943" },
-  { from: 1662520, to: 1762519, manufacturer: "Rock-ola Mfg. Corp", date: "November 1942 - November 1943" },
-  { from: 1762520, to: 1875039, manufacturer: "Irwin Pedersen-Saginaw Gear", date: "March 1943 - September 1943" },
-  { from: 1875040, to: 1937519, manufacturer: "Quality Hardware Mfg., Corp", date: "June 1943" },
-  { from: 1937520, to: 1982519, manufacturer: "National Postal Meter", date: "October 1943 - November 1943" },
-  { from: 1982520, to: 2352519, manufacturer: "Standard Products", date: "March 1943 - May 1944" },
-  { from: 2352520, to: 2912519, manufacturer: "Underwood, Elliott, Fisher", date: "July 1943 - February 1944" },
-  { from: 2912520, to: 3212519, manufacturer: "Inland Division, General Motors", date: "September 1943 - January 1944" },
-  { from: 3212520, to: 3250519, manufacturer: "Irwin Pedersen-Saginaw Gear", date: "May 1943 - January 1944" },
-  { from: 3250520, to: 3651519, manufacturer: "Saginaw (Saginaw) Division", date: "May 1943 - February 1944" },
-  { from: 3651520, to: 4009999, manufacturer: "International Business Machines", date: "October 1943 - May 1944" },
-  { from: 4010000, to: 4074999, manufacturer: "Underwood, Elliott, Fisher", date: "February 1944 - March 1944" },
-  { from: 4075000, to: 4075009, manufacturer: "Winchester Repeating Arms", date: "February 1944" },
-  { from: 4075010, to: 4432099, manufacturer: "National Postal Meter", date: "November 1943 - May 1944" },
-  { from: 4432100, to: 4532099, manufacturer: "Quality Hardware", date: "July 1943 - August 1943" },
-  { from: 4532100, to: 4632099, manufacturer: "Rock-Ola Mfg. Corporation", date: "November 1943 - March 1944" },
-  { from: 4632100, to: 4879525, manufacturer: "Quality Hardware Mfg. Corp.", date: "September 1943 - May 1944" },
-  { from: 4879526, to: 5549921, manufacturer: "Inland Division, General Motors", date: "January 1944 - August 1944" },
-  { from: 5549222, to: 5834618, manufacturer: "Winchester Repeating Arms", date: "February 1944 - November 1944" },
-  { from: 5834619, to: 6071188, manufacturer: "Saginaw (Saginaw) Division", date: "February 1944 - May 1944" },
-  { from: 6071189, to: 6099688, manufacturer: "Rock-Ola Mfg. Corporation", date: "March 1944 - April 1944" },
-  { from: 6099689, to: 6199688, manufacturer: "Underwood, Elliott, Fisher", date: "March 1944 - May 1944" },
-  { from: 6199689, to: 6219688, manufacturer: "Rock-Ola Mfg. Corporation", date: "April 1944" },
-  { from: 6219689, to: 6449867, manufacturer: "Inland Division, General Motors", date: "August 1944 - November 1944" },
-  { from: 6449688, to: 6629833, manufacturer: "Winchester Repeating Arms", date: "November 1944 - January 1945" },
-  { from: 6629834, to: 6664833, manufacturer: "Inland Division, General Motors", date: "November 1944 - January 1945" },
-  { from: 6664834, to: 7234883, manufacturer: "Inland Division, General Motors", date: "January 1945 - August 1945" },
-  { from: 7234884, to: 7369660, manufacturer: "Winchester Repeating Arms", date: "January 1945 - September 1945" },
-  { from: 7369661, to: 8069660, manufacturer: "Inland Division, General Motors", date: "January 1945 - August 1945" }
+  { from: 1, to: 2953, manufacturer: "Springfield", date: "1894" },
+  { from: 2954, to: 16384, manufacturer: "Springfield", date: "1895" },
+  { from: 16385, to: 32647, manufacturer: "Springfield", date: "1896" },
+  { from: 32648, to: 64557, manufacturer: "Springfield", date: "1897" },
+  { from: 64558, to: 116146, manufacturer: "Springfield", date: "1897" },
+  { from: 116147, to: 219925, manufacturer: "Springfield", date: "1899" },
+  { from: 219926, to: 290578, manufacturer: "Springfield", date: "1900" },
+  { from: 290579, to: 345318, manufacturer: "Springfield", date: "1901" },
+  { from: 345319, to: 398565, manufacturer: "Springfield", date: "1902" },
+  { from: 398566, to: 460407, manufacturer: "Springfield", date: "1903" },
+  { from: 460408, to: 477762, manufacturer: "Springfield", date: "1904" },
 ];
-
 
 
 const creditData = [
-  { name: "M1 Carbine source 1", url: "https://www.militaria-deal.com/militaria-blog/ww2-m1-carbine-guide" },
-  { name: "M1 Carbine source 2", url: "http://www.uscarbinecal30.com/serialnumbers.html" },
-  { name: "M1 Carbine source 3", url: "https://gunsmagazine.com/our-experts/m1-m1a1-m2-carbines" },
-  { name: "Historical Reading", url: "https://ia801400.us.archive.org/28/items/the-m1-carbine-leroy-thompson/vdoc.pub_the-m1-carbine-weapon-.pdf" },
+  { name: "Krag–Jørgensen source 1", url: "https://www.nps.gov/spar/learn/historyculture/u-s-springfield-krag-jorgensen-rifle-production-numbers.htm" },
+  { name: "Krag–Jørgensen source 2", url: "https://surplused.com/index.php/2014/05/29/a-quick-and-dirty-guide-military-krag-jorgensen-rifles/" },
+  { name: "Krag–Jørgensen source 3", url: "https://en.wikipedia.org/wiki/Krag%E2%80%93J%C3%B8rgensen" },
 ];
 
 function Krag_Jorgensen() {
@@ -60,8 +28,8 @@ function Krag_Jorgensen() {
   const [result, setResult] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [pulse, setPulse] = useState(false);
-  const outputRef = useRef(null); //new
-  const [selectedFirearm, setSelectedFirearm] = useState(""); //new
+  const outputRef = useRef(null); 
+  const [selectedFirearm, setSelectedFirearm] = useState(""); 
 
   
   const handleSubmit = (e) => {
@@ -100,7 +68,10 @@ function Krag_Jorgensen() {
 
 return (
   <div className="Krag_Jorgensen">
-    <h2>M1, M1A1, and M2 Carbine Serial Number Lookup</h2>
+    <h2>Krag–Jørgensen Serial Number Lookup</h2>
+      <p className="note-text">
+        Note: the serial number lookup will only work for Springfield rifles.
+      </p>
       <div className="side-images">
         <p className="side-image-text">Please press the button corresponding to your firearm</p>
         <div className="side-image-row">
@@ -109,7 +80,7 @@ return (
               className="side-image-button"
               onClick={() => {
                 setSelectedFirearm("m1");
-                setPulse(true);           // trigger pulse
+                setPulse(true);
                 setTimeout(() => setPulse(false), 500);
               }}
             >

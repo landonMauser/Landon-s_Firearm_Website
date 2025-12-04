@@ -24,14 +24,8 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 
-/* .M1_Carbine-empty h2 {
-  margin-bottom: 1rem;
-  font-size: 2rem;
-  color: #e50914; 
-} */
-
 .M1_Carbine .credits-container {
-  margin-top: 15rem;  /* push down the citation*/
+  margin-top: 17rem;
   text-align: center;  
   border-top: 1px solid #000;  
   padding-top: 2rem;
@@ -94,6 +88,7 @@
 .serial-button:hover {
   background-color: #b00710;
 }
+
 .pulse {
   animation: pulseFlash 2s ease-out;
 }
@@ -107,14 +102,12 @@
   }
 }
 
-
-
 .side-images {
   position: absolute; 
   top: 400px; 
   right: 130px;   
   display: flex;
-  flex-direction: column; /* text above */
+  flex-direction: column;
   gap: 10px;       
   align-items: flex-start; 
 }
@@ -126,14 +119,14 @@
 }
 
 .side-image-row {
-  display: flex;            /* buttons left, image right */
+  display: flex;
   align-items: flex-start;  
   gap: 15px;
 }
 
 .side-buttons-column {
   display: flex;
-  flex-direction: column;   /* vertical buttons */
+  flex-direction: column;
   gap: 35px;
 }
 
@@ -148,18 +141,37 @@
 }
 
 .side-image {
-  width: 25vw;
-  min-width: 300px;  /* never smaller than 300px */
+  width: 100%;
+  max-width: 25vw;
+  min-width: 300px;
   height: auto;
-  max-height: 200px;
+  max-height: 500px;
+  object-fit: contain;
 }
 
+.side-image-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 25vw;
+  min-width: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.side-image-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
 
 .input_and_output {
-  margin: 6rem 0;      /* adds vertical spacing above & below */
-  line-height: 2;       /* spreads text vertically if multi-line */
-  font-size: 1.5rem;   /* optional: make it bigger */
-  color: #000000;         /* optional: softer color */
-  text-align: left;  /* center the placeholder text */
+  margin: 6rem 0;
+  line-height: 2;
+  font-size: 1.5rem;
+  color: #000000;
+  text-align: left;
   max-width: 650px;
 }

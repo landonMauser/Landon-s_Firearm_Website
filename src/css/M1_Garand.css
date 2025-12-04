@@ -25,14 +25,14 @@
 }
 
 .note-text {
-  font-size: 0.8rem;       /* smaller font */
-  text-align: center;      /* center the text */
-  margin-top: 8px;         /* optional spacing */
-  color: #555;             /* optional softer grey */
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 8px;
+  color: #555;
 }
 
 .M1_Garand .credits-container {
-  margin-top: 15rem;  /* push down the citation*/
+  margin-top: 21rem;
   text-align: center;  
   border-top: 1px solid #000;  
   padding-top: 2rem;
@@ -45,14 +45,8 @@
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .recipes-grid > * {
@@ -95,29 +89,26 @@
 .serial-button:hover {
   background-color: #b00710;
 }
+
 .pulse {
   animation: pulseFlash 2s ease-out;
 }
 
 @keyframes pulseFlash {
-  0% {
-    background-color: rgba(255, 136, 0, 0.7);
-  }
-  100% {
-    background-color: transparent;
-  }
+  0% { background-color: rgba(255, 136, 0, 0.7); }
+  100% { background-color: transparent; }
 }
 
-
-
+/* --- Side images and buttons --- */
 .side-images {
   position: absolute; 
   top: 400px; 
-  right: 130px;   
+  right: 80px;     /* moved slightly more to the right */
   display: flex;
   flex-direction: column; /* text above */
   gap: 10px;       
-  align-items: flex-start; 
+  align-items: flex-start;
+  max-width: 30vw;  /* keeps it from getting too wide */
 }
 
 .side-image-text {
@@ -127,15 +118,15 @@
 }
 
 .side-image-row {
-  display: flex;            /* buttons left, image right */
+  display: flex;        /* buttons left, image right */
   align-items: flex-start;  
-  gap: 15px;
+  gap: 20px;
 }
 
 .side-buttons-column {
   display: flex;
   flex-direction: column;   /* vertical buttons */
-  gap: 35px;
+  gap: 20px;                /* smaller gap for nicer alignment */
 }
 
 .side-image-button {
@@ -146,21 +137,29 @@
   border: none;
   background-color: #97CDFC;
   color: #000;
+  transition: background-color 0.3s ease;
+}
+
+.side-image-button:hover {
+  background-color: #74b0f3;
 }
 
 .side-image {
   width: 25vw;
-  min-width: 300px;  /* never smaller than 300px */
+  min-width: 300px;
   height: auto;
   max-height: 200px;
+  object-fit: contain;
+  border-radius: 6px;
+  border: 1px solid #ccc;
 }
 
-
+/* --- Output area --- */
 .input_and_output {
-  margin: 6rem 0;      /* adds vertical spacing above & below */
-  line-height: 2;       /* spreads text vertically if multi-line */
-  font-size: 1.5rem;   /* optional: make it bigger */
-  color: #000000;         /* optional: softer color */
-  text-align: left;  /* center the placeholder text */
+  margin: 6rem 0;
+  line-height: 2;
+  font-size: 1.5rem;
+  color: #000;
+  text-align: left;
   max-width: 650px;
 }

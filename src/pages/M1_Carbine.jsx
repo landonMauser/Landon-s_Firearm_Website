@@ -2,12 +2,6 @@ import { useRef, useState } from "react";
 import "../css/M1_Carbine.css";
 import Credits from "../components/Credits";
 
-const exampleImages = [
-  { src: "/images/M1-rear-sight_1st.png", label: "Image 1" },
-  { src: "/images/chocolatecake.jpg", label: "Image 2" },
-  { src: "/images/chocolatecake.jpg", label: "Image 3" },
-];
-
 const serialRanges = [
   { from: 1, to: 5, manufacturer: "Inland Division, General Motors", date: "November 1941" },
   { from: 6, to: 10, manufacturer: "Winchester Repeating Arms", date: "December 1941" },
@@ -60,8 +54,10 @@ function M1_Carbine() {
   const [result, setResult] = useState(null);
   const [submitted, setSubmitted] = useState(false);
   const [pulse, setPulse] = useState(false);
-  const outputRef = useRef(null); //new
-  const [selectedFirearm, setSelectedFirearm] = useState(""); //new
+  const outputRef = useRef(null); 
+  const [selectedFirearm, setSelectedFirearm] = useState(""); 
+  const [showUnsureImage, setShowUnsureImage] = useState(false);
+
 
   
   const handleSubmit = (e) => {
@@ -109,11 +105,11 @@ return (
               className="side-image-button"
               onClick={() => {
                 setSelectedFirearm("m1");
-                setPulse(true);           // trigger pulse
+                setPulse(true);
                 setTimeout(() => setPulse(false), 500);
               }}
             >
-              Top firearm
+              Top
             </button>
 
             <button
@@ -124,7 +120,7 @@ return (
                 setTimeout(() => setPulse(false), 500);
               }}
             >
-              Middle firearm
+              Middle
             </button>
 
             <button
@@ -135,16 +131,43 @@ return (
                 setTimeout(() => setPulse(false), 500);
               }}
             >
-              Bottom firearm
+              Bottom
             </button>
 
+            <button
+              className="side-image-button"
+              onClick={() => {
+                if (showUnsureImage) {
+                 
+                  setShowUnsureImage(false);
+                  setSelectedFirearm("");
+                } else {
+                 
+                  setShowUnsureImage(true);
+                  setSelectedFirearm(""); 
+                }
+                setPulse(true);
+                setTimeout(() => setPulse(false), 500);
+              }}
+            >
+              {showUnsureImage ? "Reset" : "Unsure?"}
+            </button>
+
+
+          </div>
+          <div className="side-image-wrapper">
+            {showUnsureImage ? (
+              <>
+                <img src="/images/M1-rear-sight_1st.png" alt="Unsure 1" />
+                <img src="/images/2nd_sight.jpg" alt="Unsure 2" />
+                <img src="/images/3rd_sight.jpg" alt="Unsure 3" />
+              </>
+            ) : (
+              <img src="/images/m1_to_m2.jpg" alt="M1 Example" />
+            )}
           </div>
 
-          <img 
-            src="/images/m1_to_m2.jpg" 
-            alt="M1 Example"
-            className="side-image"
-          />
+
         </div>
       </div>
 
