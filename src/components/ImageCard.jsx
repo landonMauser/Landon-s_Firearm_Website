@@ -26,7 +26,7 @@ function ImageCard({ name, image, pagePath, isUnderDevelopment }) {
         <div className="image-card-name">{name}</div>
 
         <button 
-          className={`card-button ${isUnderDevelopment ? "dev-button" : ""}`}
+          className={`image-card-button ${isUnderDevelopment ? "dev-button" : ""}`}
           onClick={handleClick}
         >
           {isUnderDevelopment ? "Unavailable" : "Select"}

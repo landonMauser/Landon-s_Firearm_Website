@@ -165,7 +165,7 @@ return (
     <div
       className="input_and_output"
       ref={outputRef}
-      tabIndex={-1}  /* required so div can receive focus */
+      tabIndex={-1}  
     >
       {!submitted ? (
         <p>Information will be displayed here</p>

@@ -99,16 +99,15 @@
   100% { background-color: transparent; }
 }
 
-/* --- Side images and buttons --- */
 .side-images {
   position: absolute; 
   top: 400px; 
-  right: 80px;     /* moved slightly more to the right */
+  right: 80px;
   display: flex;
-  flex-direction: column; /* text above */
+  flex-direction: column;
   gap: 10px;       
   align-items: flex-start;
-  max-width: 30vw;  /* keeps it from getting too wide */
+  max-width: 30vw;
 }
 
 .side-image-text {
@@ -118,15 +117,15 @@
 }
 
 .side-image-row {
-  display: flex;        /* buttons left, image right */
+  display: flex;
   align-items: flex-start;  
   gap: 20px;
 }
 
 .side-buttons-column {
   display: flex;
-  flex-direction: column;   /* vertical buttons */
-  gap: 20px;                /* smaller gap for nicer alignment */
+  flex-direction: column;
+  gap: 20px;
 }
 
 .side-image-button {
@@ -154,7 +153,6 @@
   border: 1px solid #ccc;
 }
 
-/* --- Output area --- */
 .input_and_output {
   margin: 6rem 0;
   line-height: 2;

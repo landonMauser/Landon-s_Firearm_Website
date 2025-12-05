@@ -8,7 +8,6 @@ export default function ImageSwap({ models }) {
   return (
     <div className="side-image-row">
       
-      {/* BUTTON COLUMN */}
       <div className="side-buttons-column">
         {models.map((m, index) => (
           <button

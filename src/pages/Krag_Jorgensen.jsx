@@ -30,6 +30,9 @@ function Krag_Jorgensen() {
   const [pulse, setPulse] = useState(false);
   const outputRef = useRef(null); 
   const [selectedFirearm, setSelectedFirearm] = useState(""); 
+  const [selectedBarrel, setSelectedBarrel] = useState("");
+  const [selectedLength, setSelectedLength] = useState("");
+
 
   
   const handleSubmit = (e) => {
@@ -73,46 +76,39 @@ return (
         Note: the serial number lookup will only work for Springfield rifles.
       </p>
       <div className="side-images">
-        <p className="side-image-text">Please press the button corresponding to your firearm</p>
+        <p className="side-image-text">Select specifications for your firearm</p>
+
         <div className="side-image-row">
+
           <div className="side-buttons-column">
-            <button
-              className="side-image-button"
-              onClick={() => {
-                setSelectedFirearm("m1");
-                setPulse(true);
-                setTimeout(() => setPulse(false), 500);
-              }}
-            >
-              Top firearm
-            </button>
 
-            <button
-              className="side-image-button"
-              onClick={() => {
-                setSelectedFirearm("m1a1");
+            {/* Barrel Length Dropdown */}
+            <label className="dropdown-label">Barrel Length</label>
+            <select
+              className="dropdown-input"
+              value={selectedFirearm}
+              onChange={(e) => {
+                setSelectedFirearm(e.target.value);
                 setPulse(true);
                 setTimeout(() => setPulse(false), 500);
               }}
             >
-              Middle firearm
-            </button>
-
-            <button
-              className="side-image-button"
-              onClick={() => {
-                setSelectedFirearm("m2");
-                setPulse(true);
-                setTimeout(() => setPulse(false), 500);
-              }}
-            >
-              Bottom firearm
-            </button>
+              <option value="">Unknown</option>
+              <option value="32 inches">32 inches</option>
+              <option value="30 inches">30 inches</option>
+              <option value="29.5 inches">29.5 inches</option>
+              <option value="26.2 inches">26.2 inches</option>
+              <option value="24 inches">24 inches</option>
+              <option value="23 inches">23 inches</option>
+              <option value="22.8 inches">22.8 inches</option>
+              <option value="22 inches">22 inches</option>
+              <option value="20.5 inches">20.5 inches</option>
+            </select>
 
           </div>
 
           <img 
-            src="/images/m1_to_m2.jpg" 
+            src="/images/kragInPage.jpg" 
             alt="M1 Example"
             className="side-image"
           />
