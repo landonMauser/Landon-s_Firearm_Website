@@ -76,3 +76,25 @@
   padding: 20px;
   justify-items: center;
 }
+.title-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 10vh; /* same height you were using */
+  margin-bottom: 1rem;
+}
+
+.title-text {
+  font-size: 30px;
+  color: #000;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+.note-text {
+  font-size: 18px;
+  color: #444;
+  font-style: italic;
+  margin-top: 0.5rem;
+}

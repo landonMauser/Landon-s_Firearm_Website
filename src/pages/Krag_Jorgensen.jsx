@@ -30,8 +30,9 @@ function Krag_Jorgensen() {
   const [pulse, setPulse] = useState(false);
   const outputRef = useRef(null); 
   const [selectedFirearm, setSelectedFirearm] = useState(""); 
-  const [selectedBarrel, setSelectedBarrel] = useState("");
-  const [selectedLength, setSelectedLength] = useState("");
+  const [selectedManufacturer, setSelectedManufacturer] = useState("Springfield");
+
+
 
 
   
@@ -66,7 +67,13 @@ function Krag_Jorgensen() {
     const cleanNumber = serialNumber.replace(/,/g, "");
     const num = Number(cleanNumber);
     if (isNaN(num)) return null;
-    return serialRanges.find(row => num >= row.from && num <= row.to) || null;
+
+    return serialRanges.find(
+      row =>
+        row.manufacturer === selectedManufacturer &&
+        num >= row.from &&
+        num <= row.to
+    ) || null;
   };
 
 return (
@@ -82,7 +89,6 @@ return (
 
           <div className="side-buttons-column">
 
-            {/* Barrel Length Dropdown */}
             <label className="dropdown-label">Barrel Length</label>
             <select
               className="dropdown-input"
@@ -94,15 +100,15 @@ return (
               }}
             >
               <option value="">Unknown</option>
-              <option value="32 inches">32 inches</option>
-              <option value="30 inches">30 inches</option>
-              <option value="29.5 inches">29.5 inches</option>
-              <option value="26.2 inches">26.2 inches</option>
-              <option value="24 inches">24 inches</option>
-              <option value="23 inches">23 inches</option>
-              <option value="22.8 inches">22.8 inches</option>
-              <option value="22 inches">22 inches</option>
-              <option value="20.5 inches">20.5 inches</option>
+              <option value="Denmark">32 inches</option>
+              <option value="USA or Norway (USA if Sprinfield otherwise Norway)">30 inches</option>
+              <option value="Norway">29.5 inches</option>
+              <option value="Norway">26.2 inches</option>
+              <option value="Norway">24 inches</option>
+              <option value="Denmark">23 inches</option>
+              <option value="Denmark">22.8 inches</option>
+              <option value="USA or Denmark (USA if Sprinfield otherwise Denmark">22 inches</option>
+              <option value="Norway">20.5 inches</option>
             </select>
 
           </div>
@@ -115,24 +121,39 @@ return (
         </div>
       </div>
 
-    <form className="serial-form" onSubmit={handleSubmit}>
-      <input
-        type="text"
-        className="serial-input"
-        placeholder="Enter Serial Number"
-        value={serialNumber}
-        onChange={(e) => {
-          const sanitized = e.target.value.replace(/[^\d,]/g, "");
-          setSerialNumber(sanitized);
-        }}
-      />
-      <button type="submit" className="serial-button">Submit</button>
-    </form>
+      <form
+        className="serial-form-horizontal"
+        onSubmit={handleSubmit}
+      >
+        <select
+          className="dropdown-input"
+          value={selectedManufacturer}
+          onChange={(e) => setSelectedManufacturer(e.target.value)}
+        >
+          <option value="Springfield">Springfield</option>
+          <option value="Steyr">Steyr</option>
+          <option value="Kongsberg">Kongsberg</option>
+        </select>
+
+        <input
+          type="text"
+          className="serial-input"
+          placeholder="Enter Serial Number"
+          value={serialNumber}
+          onChange={(e) => {
+            const sanitized = e.target.value.replace(/[^\d,]/g, "");
+            setSerialNumber(sanitized);
+          }}
+        />
+
+        <button type="submit" className="serial-button">Submit</button>
+      </form>
+
 
     <div
       className="input_and_output"
       ref={outputRef}
-      tabIndex={-1}  /* required so div can receive focus */
+      tabIndex={-1} 
     >
       {!submitted ? (
         <p>Information will be displayed here</p>
@@ -152,7 +173,7 @@ return (
           style={{ marginTop: "1rem" }} 
           className={pulse ? "pulse" : ""}
         >
-          <strong>Type:</strong> {selectedFirearm}
+          <strong>Country of Manufacute:</strong> {selectedFirearm}
         </p>
       )}
     </div>

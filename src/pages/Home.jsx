@@ -50,19 +50,16 @@ function Home() {
 
   return (
     <div className="home">
-      <div
-        style={{
-          textAlign: "center",
-          height: "10vh",
-          alignItems: "center",
-          fontSize: "30px",
-          color: "#000000ff",
-          textDecoration: "underline",
-          fontWeight: "bold",
-        }}
-      >
+    <div className="title-section">
+      <div className="title-text">
         Please click the blue button for the desired Firearm
       </div>
+
+      <div className="note-text">
+        May not account for after market modification
+      </div>
+    </div>
+
 
       <form onSubmit={handleSearch} className="search-form">
         <input
