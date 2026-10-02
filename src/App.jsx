@@ -9,6 +9,8 @@ import Krag_Jorgensen from "./pages/Krag_Jorgensen";
 import { Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
 import Mosin_nagant from "./pages/Mosin_Nagant";
+import Coke_Bottle from "./pages/Coke_Bottle";
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path="/M1_Garand" element={<M1_Garand />} />
           <Route path="/Krag_Jorgensen" element={<Krag_Jorgensen/>} />
           <Route path="/M1_Carbine" element={<M1_carbine />} />
+          <Route path="/Coke_Bottle" element={<Coke_Bottle />} />
         </Routes>
       </main>
     </div>
