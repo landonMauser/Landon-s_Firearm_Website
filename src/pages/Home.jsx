@@ -96,7 +96,9 @@ function Home() {
             Carcano: "/carcano",
             "Krag Jorgensen": "/Krag_Jorgensen",
             "Mosin Nagant": "/Mosin_Nagant",
-            "Mosin Nagant": "/Mosin_Nagant",
+            "Coke Bottle": "/Coke_Bottle",
+            "Object1": "/Object1",
+            "Object2": "/Object2",
           };
 
           const pagePath = specialPages[f.Firearm_Name] || null;
